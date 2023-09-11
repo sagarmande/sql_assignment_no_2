@@ -1,0 +1,13 @@
+SELECT COUNT(*) FROM Orders;
+SELECT SUM(OrderTotal) FROM OrderItems;
+SELECT AVG(ProductPrice) FROM Products;
+SELECT MAX(ProductPrice) FROM Products;
+SELECT MIN(StockQuantity) FROM Products;
+SELECT CustomerID, GROUP_CONCAT(OrderID) AS OrderList FROM Orders GROUP BY CustomerID;
+SELECT CustomerID, STRING_AGG(OrderID, ', ') AS OrderList FROM Orders GROUP BY CustomerID;
+SELECT CustomerID, COUNT(OrderID) AS OrderCount
+FROM Orders
+GROUP BY CustomerID
+HAVING COUNT(OrderID) > 3;
+SELECT COUNT(DISTINCT ProductID) FROM OrderItems;
+SELECT STDDEV(ProductPrice) FROM Products;
