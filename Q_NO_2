@@ -1,0 +1,30 @@
+DELIMITER //
+
+CREATE PROCEDURE RegisterDatabaseUsage(
+    IN userID INT,
+    IN action VARCHAR(255)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK; -- Rollback the transaction if an error occurs.
+        SELECT 'Error: ' + SQLSTATE;
+    END;
+
+    START TRANSACTION; -- Begin a transaction.
+
+    -- Validate input parameters.
+    IF userID IS NULL OR action IS NULL THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error: Invalid input parameters.';
+    END IF;
+
+    -- Insert the record into the AuditLog table.
+    INSERT INTO AuditLog (UserID, Action, Timestamp)
+    VALUES (userID, action, NOW());
+
+    COMMIT; -- Commit the transaction if all steps are successful.
+END;
+//
+
+DELIMITER ;
