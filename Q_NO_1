@@ -1,0 +1,18 @@
+Customer
+
+Attributes: CustomerID (Primary Key), FirstName, LastName, Email, Phone, Address
+Product
+
+Attributes: ProductID (Primary Key), Name, Description, Price, StockQuantity
+Order
+
+Attributes: OrderID (Primary Key), CustomerID (Foreign Key), OrderDate, Status (e.g., Pending, Shipped, Delivered)
+OrderItem
+
+Attributes: OrderItemID (Primary Key), OrderID (Foreign Key), ProductID (Foreign Key), Quantity, Subtotal
+Supplier
+
+Attributes: SupplierID (Primary Key), Name, Email, Phone, Address
+ProductSupplier (A junction table to represent the many-to-many relationship between Products and Suppliers)
+
+Attributes: ProductID (Foreign Key), SupplierID (Foreign Key)
