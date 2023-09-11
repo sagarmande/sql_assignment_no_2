@@ -1,0 +1,20 @@
+SELECT *
+FROM (
+    SELECT Month, Category, Revenue
+    FROM Sales
+) AS SourceData
+PIVOT (
+    SUM(Revenue)
+    FOR Month IN ([Jan], [Feb], [Mar], [Apr], [May], [Jun])
+) AS PivotTable;
+
+SELECT
+    Category,
+    SUM(CASE WHEN Month = 'Jan' THEN Revenue ELSE 0 END) AS Jan,
+    SUM(CASE WHEN Month = 'Feb' THEN Revenue ELSE 0 END) AS Feb,
+    SUM(CASE WHEN Month = 'Mar' THEN Revenue ELSE 0 END) AS Mar,
+    SUM(CASE WHEN Month = 'Apr' THEN Revenue ELSE 0 END) AS Apr,
+    SUM(CASE WHEN Month = 'May' THEN Revenue ELSE 0 END) AS May,
+    SUM(CASE WHEN Month = 'Jun' THEN Revenue ELSE 0 END) AS Jun
+FROM Sales
+GROUP BY Category;
